@@ -54,7 +54,6 @@ export default function CreateAcivity(props) {
   };
 
   const InputRightElement = (isEdit) => {
-    console.log('aku edit handler', isEdit);
     return !isEdit ? (
       <ButtonCreate handleAddTodo={handleAddTodo} />
     ) : (

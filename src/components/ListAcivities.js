@@ -22,10 +22,10 @@ export default function ListActivities(props) {
     await refetch();
   });
 
-  const handleEditTodo = useMutation(async (item) => {
+  const handleEditTodo = (item) => {
     setActivity(item.activity);
     setEdit(item);
-  });
+  };
 
   return (
     <Box>
@@ -48,7 +48,7 @@ export default function ListActivities(props) {
                 <Checkbox
                   defaultIsChecked={item.complete}
                   accessibilityLabel={`${item.activity}`}
-                  onPress={() => handleCompleteTodo(item)}
+                  onPress={() => handleCompleteTodo.mutate(item)}
                 >
                   <Text ml={3} strikeThrough={item.complete}>
                     {item.activity}
@@ -57,7 +57,7 @@ export default function ListActivities(props) {
                 <HStack space={2}>
                   <Box alignItems="center">
                     <Button
-                      onPress={() => handleEditTodo.mutate(item)}
+                      onPress={() => handleEditTodo(item)}
                       leftIcon={<Icon as={MaterialCommunityIcons} name="square-edit-outline" size="xs" color="white" />}
                       bg="cyan.500"
                     ></Button>
