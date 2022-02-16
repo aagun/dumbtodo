@@ -17,18 +17,6 @@ export default function CreateAcivity(props) {
     if (!activity) return setIsInValid(true);
     setIsInValid(false);
 
-    // if (edit.id) {
-    //   // store data to database
-    //   const { err } = await supabase.from('todos').update([{ activity }]).eq('id', edit.id).single();
-
-    //   // check if any error
-    //   if (err) console.log(`${err.message}`);
-
-    //   setActivity('');
-    //   setEdit('');
-    //   return refetch();
-    // }
-
     // store data to database
     const { error } = await supabase
       .from('todos')
@@ -49,42 +37,41 @@ export default function CreateAcivity(props) {
     if (!activity) return setIsInValid(true);
     setIsInValid(false);
 
-    if (edit.id) {
-      // store data to database
-      const { err } = await supabase.from('todos').update([{ activity }]).eq('id', edit.id).single();
+    // store data to database
+    const { err } = await supabase.from('todos').update([{ activity }]).eq('id', edit.id).single();
 
-      // check if any error
-      if (err) console.log(`${err.message}`);
+    // check if any error
+    if (err) console.log(`${err.message}`);
 
-      setActivity('');
-      setEdit('');
-      return refetch();
-    }
-  };
-  const handleCancle = () => {
     setActivity('');
     setEdit('');
+    refetch();
+  };
+
+  const handleCancle = () => {
+    setActivity('');
+    setEdit(null);
   };
 
   const InputRightElement = (isEdit) => {
-    return isEdit ? (
-      <ButtonUpdate handleCancle={handleCancle} handleSave={handleEditTodo} />
-    ) : (
+    console.log('aku edit handler', isEdit);
+    return !isEdit ? (
       <ButtonCreate handleAddTodo={handleAddTodo} />
+    ) : (
+      <ButtonUpdate handleCancle={handleCancle} handleSave={handleEditTodo} />
     );
   };
 
   return (
     <FormControl isInvalid={isInValid}>
       <Input
-        type={'text'}
         w="75%"
         maxW="350px"
         pl="3"
         py="3"
         size="md"
         name="task"
-        InputRightElement={InputRightElement(!!edit)}
+        InputRightElement={InputRightElement(edit)}
         placeholder="Your Activity"
         onChangeText={handleChange}
         value={activity}

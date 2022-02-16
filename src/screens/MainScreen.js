@@ -7,7 +7,7 @@ import ListActivities from '../components/ListAcivities';
 
 export default function MainScreen() {
   const [activity, setActivity] = useState('');
-  const [edit, setEdit] = useState([]);
+  const [edit, setEdit] = useState(null);
 
   const { isSuccess, data, refetch } = useQuery(
     'todosCache',
